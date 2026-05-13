@@ -18,17 +18,20 @@ for submission_id in submission_ids[:30]:
     response_dict = r.json()
 
     # Build a dictionary for each article.
-    submission_dict = {
+    submission_dict = {                                                         # type: ignore
         'title': response_dict['title'],
         'hn_link': f"https://news.ycombinator.com/item?id={submission_id}",
-        'comments': response_dict['descendants'],
     }
-    submission_dicts.append(submission_dict)
+    try:
+        submission_dict['comments'] = response_dict['descendants']
+    except KeyError:
+        submission_dict['comments'] = 0
+    submission_dicts.append(submission_dict)                                    # type: ignore
 
-submission_dicts = sorted(submission_dicts, key=itemgetter('comments'),
+submission_dicts = sorted(submission_dicts, key=itemgetter('comments'),         # type: ignore
                             reverse=True)
 
-for submission_dict in submission_dicts:
+for submission_dict in submission_dicts:                                        # type: ignore
     print(f"\nTitle: {submission_dict['title']}")
     print(f"Discussion link: {submission_dict['hn_link']}")
     print(f"Comments: {submission_dict['comments']}")
