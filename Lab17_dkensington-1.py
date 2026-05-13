@@ -20,7 +20,7 @@ for submission_id in submission_ids[:30]:
     # Build a dictionary for each article.
     submission_dict = {                                                         # type: ignore
         'title': response_dict['title'],
-        'hn_link': f"https://news.ycombinator.com/item?id={submission_id}",
+        'hn_link': f"https://news.ycombinator.com/item?id={submission_id}"
     }
     try:
         submission_dict['comments'] = response_dict['descendants']
